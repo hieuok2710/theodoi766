@@ -4,7 +4,7 @@ const BASE_DATA: Criterion[] = [
   {
     id: 'c1',
     title: 'Công khai, minh bạch',
-    description: 'Công bố TTHC đúng hạn, công khai nội dung quy định, đồng bộ hồ sơ lên Cổng DVCQG.',
+    description: 'Tỷ lệ hồ sơ đồng bộ lên Cổng DVCQG; Công khai TTHC đúng hạn; Công khai tiến độ giải quyết.',
     maxScore: 18,
     currentScore: 15.5,
     color: '#3b82f6', // blue-500
@@ -12,7 +12,7 @@ const BASE_DATA: Criterion[] = [
   {
     id: 'c2',
     title: 'Tiến độ, kết quả giải quyết',
-    description: 'Tỷ lệ hồ sơ xử lý đúng hạn/trước hạn, thời gian giải quyết trung bình.',
+    description: 'Tỷ lệ xử lý đúng hạn/trước hạn; Thời gian giải quyết trung bình; Tỷ lệ hồ sơ trả lại/xin lỗi.',
     maxScore: 20,
     currentScore: 14,
     color: '#10b981', // emerald-500
@@ -20,7 +20,7 @@ const BASE_DATA: Criterion[] = [
   {
     id: 'c3',
     title: 'Cung cấp dịch vụ trực tuyến',
-    description: 'Tỷ lệ TTHC phát sinh hồ sơ trực tuyến, thanh toán trực tuyến.',
+    description: 'Tỷ lệ hồ sơ nộp trực tuyến; Tỷ lệ thanh toán trực tuyến; Tỷ lệ DVC trực tuyến toàn trình.',
     maxScore: 22,
     currentScore: 12.5,
     color: '#f59e0b', // amber-500
@@ -28,7 +28,7 @@ const BASE_DATA: Criterion[] = [
   {
     id: 'c4',
     title: 'Số hóa hồ sơ',
-    description: 'Tỷ lệ cấp kết quả điện tử, số hóa đầu vào, tái sử dụng dữ liệu số hóa.',
+    description: 'Tỷ lệ cấp kết quả bản điện tử; Tỷ lệ số hóa hồ sơ đầu vào; Tỷ lệ tái sử dụng dữ liệu số hóa.',
     maxScore: 22,
     currentScore: 10,
     color: '#ef4444', // red-500
@@ -36,7 +36,7 @@ const BASE_DATA: Criterion[] = [
   {
     id: 'c5',
     title: 'Mức độ hài lòng',
-    description: 'Kết quả xử lý phản ánh, kiến nghị và đánh giá trực tiếp của người dân.',
+    description: 'Mức độ hài lòng của người dân, doanh nghiệp; Tỷ lệ phản ánh, kiến nghị được xử lý đúng hạn.',
     maxScore: 18,
     currentScore: 16.5,
     color: '#8b5cf6', // violet-500

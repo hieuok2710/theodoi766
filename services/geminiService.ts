@@ -1,14 +1,10 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Criterion, AnalysisResponse } from "../types";
 
-const GEMINI_API_KEY = process.env.API_KEY || '';
-
 export const analyzeScores = async (data: Criterion[]): Promise<AnalysisResponse> => {
-  if (!GEMINI_API_KEY) {
-    throw new Error("API Key missing. Please provide a valid API key.");
-  }
-
-  const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+  // Use process.env.API_KEY directly as per guidelines.
+  // The environment variable is assumed to be pre-configured and valid.
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
   const prompt = `
     Bạn là một chuyên gia về Cải cách hành chính tại Việt Nam, đặc biệt am hiểu về Quyết định 766/QĐ-TTg của Thủ tướng Chính phủ.
