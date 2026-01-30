@@ -1,11 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import { INITIAL_YEARLY_DATA } from './constants';
-import { Criterion, AnalysisResponse } from './types';
+import { Criterion, AnalysisResponse, SystemConfig } from './types';
 import { ScoreCard } from './components/ScoreCard';
 import { DashboardCharts } from './components/DashboardCharts';
 import { AIAdvisor } from './components/AIAdvisor';
+import { SettingsModal } from './components/SettingsModal';
 import { analyzeScores } from './services/geminiService';
-import { Save, RotateCcw, FileText, Calendar, CheckCircle2, AlertTriangle, LayoutDashboard, Database, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Save, RotateCcw, FileText, Calendar, CheckCircle2, AlertTriangle, LayoutDashboard, Database, Settings, ChevronRight } from 'lucide-react';
 
 const App: React.FC = () => {
   const [yearlyData, setYearlyData] = useState<Record<number, Criterion[]>>(INITIAL_YEARLY_DATA);
@@ -13,6 +14,13 @@ const App: React.FC = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysis, setAnalysis] = useState<AnalysisResponse | null>(null);
   const [toast, setToast] = useState<{message: string, type: 'success' | 'error'} | null>(null);
+  
+  // System Configuration State
+  const [config, setConfig] = useState<SystemConfig>({
+    agencyName: 'Văn phòng Ủy ban Nhân dân Tỉnh',
+    year: 2026
+  });
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const currentData = yearlyData[selectedMonth] || yearlyData[1];
 
@@ -37,6 +45,11 @@ const App: React.FC = () => {
 
   const handleSave = () => {
     showToast("Đã lưu dữ liệu thành công", "success");
+  };
+
+  const handleConfigSave = (newConfig: SystemConfig) => {
+    setConfig(newConfig);
+    showToast("Cập nhật cấu hình thành công", "success");
   };
 
   const handleAnalyze = async () => {
@@ -96,8 +109,11 @@ const App: React.FC = () => {
                  </div>
                  <div className="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
               </button>
-              <button className="w-full flex items-center gap-3 p-3 rounded-xl text-slate-500 font-bold text-sm hover:bg-slate-50 transition-all">
-                 <Settings size={18} />
+              <button 
+                onClick={() => setIsSettingsOpen(true)}
+                className="w-full flex items-center gap-3 p-3 rounded-xl text-slate-500 font-bold text-sm hover:bg-slate-50 transition-all hover:text-blue-600 group"
+              >
+                 <Settings size={18} className="group-hover:rotate-45 transition-transform" />
                  <span>Cấu hình hệ thống</span>
               </button>
             </div>
@@ -108,7 +124,7 @@ const App: React.FC = () => {
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
                 <Calendar size={12} />
-                Chu kỳ đánh giá (2026)
+                Chu kỳ đánh giá ({config.year})
               </h3>
               <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">Tháng {selectedMonth}</span>
             </div>
@@ -178,7 +194,7 @@ const App: React.FC = () => {
               <h2 className="text-xl font-black text-slate-800 tracking-tight flex items-center gap-2">
                 Dashboard Phân tích <ChevronRight size={18} className="text-slate-300" /> Tháng {selectedMonth}
               </h2>
-              <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">Cơ quan: Văn phòng Ủy ban Nhân dân Tỉnh</p>
+              <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">Cơ quan: {config.agencyName}</p>
            </div>
            <div className="flex items-center gap-4">
               <div className="flex -space-x-2">
@@ -216,6 +232,14 @@ const App: React.FC = () => {
           </div>
         )}
       </main>
+
+      {/* Settings Modal */}
+      <SettingsModal 
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+        config={config}
+        onSave={handleConfigSave}
+      />
 
       <style>{`
         .custom-scrollbar::-webkit-scrollbar {

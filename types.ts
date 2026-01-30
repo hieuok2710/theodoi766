@@ -15,3 +15,8 @@ export interface AnalysisResponse {
     priority: 'High' | 'Medium' | 'Low';
   }>;
 }
+
+export interface SystemConfig {
+  agencyName: string;
+  year: number;
+}
